@@ -1,4 +1,4 @@
-@AtkninNikita_kt_41_23_HostAddress = http://localhost:5137
+@AtkninNikita_kt_41_23_HostAddress = http://localhost:5188
 
 GET {{AtkninNikita_kt_41_23_HostAddress}}/weatherforecast/
 Accept: application/json
