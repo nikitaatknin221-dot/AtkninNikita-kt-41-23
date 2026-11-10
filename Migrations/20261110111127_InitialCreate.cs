@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtkninNikita_kt_41_23.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDatabase : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,6 +44,20 @@ namespace AtkninNikita_kt_41_23.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Specialties",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Specialties", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Students",
                 columns: table => new
                 {
@@ -60,34 +74,6 @@ namespace AtkninNikita_kt_41_23.Migrations
                         name: "FK_Students_Groups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "Groups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Credits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    StudentId = table.Column<int>(type: "integer", nullable: false),
-                    DisciplineId = table.Column<int>(type: "integer", nullable: false),
-                    IsPassed = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Credits", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Credits_Disciplines_DisciplineId",
-                        column: x => x.DisciplineId,
-                        principalTable: "Disciplines",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Credits_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -121,16 +107,6 @@ namespace AtkninNikita_kt_41_23.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Credits_DisciplineId",
-                table: "Credits",
-                column: "DisciplineId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Credits_StudentId",
-                table: "Credits",
-                column: "StudentId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Grades_DisciplineId",
                 table: "Grades",
                 column: "DisciplineId");
@@ -150,10 +126,10 @@ namespace AtkninNikita_kt_41_23.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Credits");
+                name: "Grades");
 
             migrationBuilder.DropTable(
-                name: "Grades");
+                name: "Specialties");
 
             migrationBuilder.DropTable(
                 name: "Disciplines");

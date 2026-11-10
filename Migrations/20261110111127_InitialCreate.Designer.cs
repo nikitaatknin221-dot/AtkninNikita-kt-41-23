@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtkninNikita_kt_41_23.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20261110092734_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20261110111127_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,35 +24,6 @@ namespace AtkninNikita_kt_41_23.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("AtkninNikita_kt_41_23.Models.Credit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("DisciplineId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("IsPassed")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DisciplineId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Credits");
-                });
 
             modelBuilder.Entity("AtkninNikita_kt_41_23.Models.Discipline", b =>
                 {
@@ -134,6 +105,27 @@ namespace AtkninNikita_kt_41_23.Migrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("AtkninNikita_kt_41_23.Models.Specialty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialties");
+                });
+
             modelBuilder.Entity("AtkninNikita_kt_41_23.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -157,25 +149,6 @@ namespace AtkninNikita_kt_41_23.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("AtkninNikita_kt_41_23.Models.Credit", b =>
-                {
-                    b.HasOne("AtkninNikita_kt_41_23.Models.Discipline", "Discipline")
-                        .WithMany()
-                        .HasForeignKey("DisciplineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AtkninNikita_kt_41_23.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Discipline");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("AtkninNikita_kt_41_23.Models.Grade", b =>
