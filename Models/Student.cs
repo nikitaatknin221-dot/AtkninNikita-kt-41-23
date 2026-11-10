@@ -1,11 +1,19 @@
-﻿namespace AtkninNikita_kt_41_23.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AtkninNikita_kt_41_23.Models
 {
     public class Student
     {
         public int Id { get; set; }
-        public string FullName { get; set; } = string.Empty;
+
+        [Required]
+        public string FirstName { get; set; } = string.Empty; // Имя
+
+        [Required]
+        public string LastName { get; set; } = string.Empty;  // Фамилия
+
         public int GroupId { get; set; }
         public Group? Group { get; set; }
-        public DateTime? DeletedAt { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

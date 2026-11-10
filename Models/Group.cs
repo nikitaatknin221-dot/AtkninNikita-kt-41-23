@@ -1,11 +1,19 @@
-﻿namespace AtkninNikita_kt_41_23.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AtkninNikita_kt_41_23.Models
 {
     public class Group
     {
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; } = string.Empty;
-        public string Specialty { get; set; } = string.Empty;
-        public int EnrollmentYear { get; set; }
-        public DateTime? DeletedAt { get; set; }
+
+        [Required]
+        public int Course { get; set; } // Год набора заменен на Курс
+
+        public int SpecialtyId { get; set; }
+        public Specialty? Specialty { get; set; }
+        public bool IsDeleted { get; set; } // Вместо DeletedAt
     }
 }
